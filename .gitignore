@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 data/raw/
 data/*.tmp
+data/*-vectors.partial.npz

@@ -9,6 +9,7 @@ from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from .retrieval import CORPUS, normal, tokenize
+from .vector_search import hybrid_rank
 
 RESEARCH_CORPUS = CORPUS.with_name("research-corpus.json")
 KEYWORDS = {
@@ -82,7 +83,7 @@ def research_terms(question):
 def research_index(_mtime):
     records = json.loads(RESEARCH_CORPUS.read_text(encoding="utf-8"))
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1320, chunk_overlap=130, separators=["\n\n", "\n", ". ", " ", ""]
+        chunk_size=800, chunk_overlap=100, separators=["\n\n", "\n", ". ", " ", ""]
     )
     docs = []
     for record in records:
@@ -105,14 +106,15 @@ def research_index(_mtime):
     return BM25Retriever.from_documents(docs, preprocess_func=tokenize)
 
 
-def search_research(question, limit=6):
+def search_research(question, limit=3):
     terms = research_terms(question)
     if not terms:
         return []
     index = research_index(RESEARCH_CORPUS.stat().st_mtime_ns)
     scores = index.vectorizer.get_scores(sorted(terms))
-    ranked = [index.docs[int(i)] for i in np.argsort(-scores, kind="stable")
-              if scores[int(i)] > 0 and terms.intersection(index.vectorizer.doc_freqs[int(i)])]
+    lexical = [int(i) for i in np.argsort(-scores, kind="stable")
+               if scores[i] > 0 and terms.intersection(index.vectorizer.doc_freqs[i])]
+    ranked = [index.docs[i] for i in hybrid_rank("research", index.docs, question, lexical)]
     selected = []
     source_counts = Counter()
     for maximum in (1, 2):

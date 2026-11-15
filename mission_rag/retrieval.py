@@ -5,10 +5,11 @@ from pathlib import Path
 import re
 import unicodedata
 
-import numpy as np
 from langchain_community.retrievers import BM25Retriever
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+from .vector_search import hybrid_rank
 
 CORPUS = Path(__file__).resolve().parent.parent / "data" / "corpus.json"
 STOPWORDS = set("""
@@ -87,10 +88,6 @@ def search(question, limit=6):
     mission_terms = named | {re.sub(r"\d+$", "", key) for key in named}
     topic = {term for term in terms - mission_terms - generic if not term.isdigit()}
     discriminating = {term for term in topic if term in index.vectorizer.idf}
-    if topic and not discriminating:
-        return []
-    if not named and len(topic) > 1 and len(discriminating) < 2:
-        return []
     if not topic and not named:
         return []
 
@@ -98,19 +95,22 @@ def search(question, limit=6):
     for i, doc in enumerate(index.docs):
         if doc.metadata["excerpt"].startswith(("Alternate Names:", "Facts in Brief:")):
             scores[i] *= 0.7
-    ranked = []
-    for raw_index in np.argsort(-scores, kind="stable"):
-        i = int(raw_index)
-        if scores[i] <= 0:
-            break
-        doc = index.docs[i]
+    lexical = []
+    tags_by_index = {}
+    for i, doc in enumerate(index.docs):
         tags = mission_keys(doc.metadata["mission"])
         passage_terms = index.vectorizer.doc_freqs[i]
         if named and not (tags & named) and not named.intersection(passage_terms):
             continue
-        if discriminating and not discriminating.intersection(passage_terms):
-            continue
-        ranked.append((doc, tags | named.intersection(passage_terms)))
+        tags_by_index[i] = tags | named.intersection(passage_terms)
+        suitable = (not topic or discriminating.intersection(passage_terms))
+        if scores[i] > 0 and suitable:
+            lexical.append(i)
+    if not named and len(topic) > 1 and len(discriminating) < 2:
+        lexical = []
+    lexical.sort(key=lambda i: scores[i], reverse=True)
+    ranking = hybrid_rank("missions", index.docs, question, lexical, eligible=tags_by_index.keys())
+    ranked = [(index.docs[i], tags_by_index[i]) for i in ranking]
 
     selected = []
     url_counts = Counter()

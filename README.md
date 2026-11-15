@@ -113,6 +113,7 @@ curl -sS http://127.0.0.1:8010/api/research/search/ \
   -d '{"question":"intolerancia ortostática y presión arterial"}'
 ```
 
+La búsqueda devuelve hasta tres fragmentos de 800 caracteres cada uno.
 Cada resultado incluye el `excerpt`, `source_id`, tipo de documento, URL y
 página o sección, además del DOI o licencia cuando la fuente dispone de ellos.
 Los identificadores `S1`, `S2`, etc. pertenecen a la consulta actual. Si el
@@ -127,3 +128,42 @@ PYTHONPATH=.deps python3 -m mission_rag.research_ingest --refresh
 
 La búsqueda en Render solo necesita el JSON preparado. Las dependencias de
 extracción de PDF y los archivos originales solo son necesarios para regenerarlo.
+
+## Búsqueda híbrida con embeddings
+
+Django construye el índice BM25 al arrancar la búsqueda y combina su ranking
+con el ranking semántico cuando el índice vectorial está disponible. La
+colección de salud sigue entregando hasta 3 extractos de 800 caracteres.
+
+Activa los embeddings en **Render → Environment** con estas dos variables.
+Usa el mismo modelo que generó los índices versionados.
+
+| Variable | Valor para SOMA |
+| --- | --- |
+| `OLLAMA_EMBED_URL` | `https://scouting-flatten-arrival.ngrok-free.dev/api/embed` |
+| `OLLAMA_EMBED_MODEL` | `qwen3-embedding:8b` |
+
+En Terminal, define las mismas variables antes de generar el índice:
+
+```sh
+export OLLAMA_EMBED_URL=https://scouting-flatten-arrival.ngrok-free.dev/api/embed
+export OLLAMA_EMBED_MODEL=qwen3-embedding:8b
+PYTHONPATH=.deps python3 manage.py build_embeddings
+```
+
+También puedes ejecutar el comando con `--collection missions` o
+`--collection research`. El comando reutiliza los lotes guardados si se
+interrumpe. Reejecútalo si actualizas el corpus o cambias de modelo. Puedes
+generar los archivos con Ollama local mediante
+`OLLAMA_EMBED_URL=http://127.0.0.1:11434/api/embed`.
+
+Sube `data/missions-vectors.npz` y `data/research-vectors.npz` a GitHub junto
+a sus corpus. Cada archivo contiene vectores comprimidos de 256 dimensiones
+y una huella que permite verificar que pertenecen a esa versión del texto.
+Render carga los archivos y calcula similitud coseno en memoria. No necesita
+una base vectorial ni descargar el corpus en cada build. Sin un índice
+válido, si falta cualquiera de las dos variables o si Ollama no responde,
+se usa BM25 con el mismo contrato de la API.
+
+La consulta de búsqueda se envía a Ollama para obtener su embedding. Usa
+términos de búsqueda sin nombres, fichas clínicas ni telemetría.

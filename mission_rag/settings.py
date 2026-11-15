@@ -5,6 +5,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or os.urandom(32).hex()
 DEBUG = False
 ALLOWED_HOSTS = [host.strip() for host in os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,[::1]").split(",") if host.strip()]
+if render_host := os.getenv("RENDER_EXTERNAL_HOSTNAME", "").strip():
+    ALLOWED_HOSTS.append(render_host)
 ROOT_URLCONF = "mission_rag.urls"
 WSGI_APPLICATION = "mission_rag.wsgi.application"
 INSTALLED_APPS = ["mission_rag"]

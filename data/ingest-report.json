@@ -1,0 +1,273 @@
+{
+  "sources": 207,
+  "failures": [
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1998-067A",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1997-061A",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-019A",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1997-061C",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2001-014A",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2004-006A",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1968-118A-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059A-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059A-07",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059C-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059C-02",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059C-03",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059C-06",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-099A-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-099A-11",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-099C-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-099C-04",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-099C-06",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-099C-07",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008A-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008A-02",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008A-05",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008A-06",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008C-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008C-02",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008C-03",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008C-08",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008C-10",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-008C-12",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-02",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-03",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-04",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-05",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-06",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-07",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-08",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-09",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-10",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063A-12",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063C-02",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063C-03",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063C-04",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063C-10",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1971-063D-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1972-031A-06",
+      "error": "La ficha no contiene texto suficiente"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1972-031A-13",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1972-031A-14",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1972-031A-16",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1972-096A-10",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1972-096A-12",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1966-045A-01",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1975-083A-04",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1975-083C-03",
+      "error": "El catálogo de NASA devolvió un error interno"
+    },
+    {
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1967-070A-03",
+      "error": "El catálogo de NASA devolvió un error interno"
+    }
+  ],
+  "missions": [
+    "2001 Mars Odyssey",
+    "Apollo",
+    "Apollo 10",
+    "Apollo 11",
+    "Apollo 12",
+    "Apollo 13",
+    "Apollo 14",
+    "Apollo 15",
+    "Apollo 15, Apollo 16, Apollo 17",
+    "Apollo 16",
+    "Apollo 17",
+    "Apollo 17, ISS",
+    "Apollo 8",
+    "Apollo, ISS",
+    "Cassini, Huygens",
+    "Dawn",
+    "Galileo",
+    "Gemini, Apollo, Skylab, ISS",
+    "Hayabusa",
+    "ISS",
+    "Lunar Prospector",
+    "Lunar Reconnaissance Orbiter",
+    "Mariner 2",
+    "Mariner 4",
+    "Mariner 9",
+    "Mars 2020",
+    "Mars Exploration Rover Opportunity",
+    "Mars Exploration Rover Spirit",
+    "Mars Global Surveyor",
+    "Mars Pathfinder",
+    "Mars Pathfinder Rover",
+    "Mars Reconnaissance Orbiter",
+    "Mars Science Laboratory",
+    "Mercury, Gemini, Apollo",
+    "Rosetta",
+    "Skylab",
+    "Skylab 3",
+    "Stardust",
+    "Surveyor 1",
+    "Surveyor 3",
+    "Viking 1 Lander",
+    "Viking 1 Orbiter",
+    "Viking 2 Lander",
+    "Viking 2 Orbiter",
+    "Voyager 1",
+    "Voyager 2"
+  ]
+}

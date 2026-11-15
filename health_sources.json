@@ -1,0 +1,40 @@
+{
+  "origin": "https://science.nasa.gov/biological-physical/data/",
+  "reports_index": "https://humanresearchroadmap.nasa.gov/evidence/",
+  "journal_index": "https://public.ksc.nasa.gov/nslsl/",
+  "reports": [
+    {"id":"hrp-medical","title":"Risk of Adverse Health Outcomes and Decrements in Performance Due to Medical Conditions that occur in Mission","path":"reports/Medical.pdf","topic":"medical operations in-flight medical conditions crew health"},
+    {"id":"hrp-sensorimotor","title":"Risk of Altered Sensorimotor/Vestibular Function Impacting Critical Mission Tasks, Human Health, and Long-Term Health","path":"reports/SM%20Evidence%20Report%202022_FINAL%206-13-2023.pdf","topic":"vestibular motion sickness balance dizziness sensorimotor"},
+    {"id":"hrp-cardiovascular","title":"Risk of Cardiovascular Adaptations Contributing to Adverse Mission Performance and Health Outcomes","path":"reports/Cardio%20Risk%20EB%202022%20FINAL_4-3-2023.pdf","topic":"cardiovascular blood pressure orthostatic intolerance fluid shift"},
+    {"id":"hrp-sleep","title":"Risk of Performance Decrements and Adverse Health Outcomes Resulting from Sleep Loss, Circadian Desynchronization, and Work Overload","path":"reports/Sleep.pdf","topic":"sleep fatigue circadian alertness"},
+    {"id":"hrp-bone","title":"Risk of Bone Fracture due to Spaceflight-induced Changes to Bone","path":"reports/Bone%20Fracture%20Evidence%20Report_07-18-2024.pdf","topic":"bone fracture bone density musculoskeletal"},
+    {"id":"hrp-fitness","title":"Risk of Mission Performance Decrements and Adverse Health Outcomes Resulting from Reduced Cardiorespiratory and Musculoskeletal Fitness","path":"reports/Evidence%20report%20aerobic%20and%20muscle_FINAL%204-3-2024.pdf","topic":"cardiorespiratory exercise muscle atrophy fatigue"},
+    {"id":"hrp-vision","title":"Risk of Spaceflight Associated Neuro-ocular Syndrome (SANS)","path":"reports/SANS%20EB%202022%20FINAL_8-15-22.pdf","topic":"vision neuro-ocular ocular SANS"},
+    {"id":"hrp-hypoxia-dcs","title":"Evidence Report: Hypoxia and Decompression Sickness","path":"reports/Evidence%20Report%20Hypoxia%20and%20DCS_FINAL_1-8-2024.pdf","topic":"hypoxia oxygen decompression pressure"},
+    {"id":"hrp-nutrition","title":"Human Adaptation to Spaceflight","path":"other/Nutrition%20ER_human_adaptation_2020_final.pdf","topic":"nutrition hydration food metabolism"},
+    {"id":"hrp-dust","title":"Risk of Adverse In-Mission Health and Performance Effects and Long-Term Health Effects Due to Celestial Dust Exposure","path":"reports/Dust.pdf","topic":"lunar dust respiratory ocular exposure"}
+  ],
+  "articles": [
+    {"id":"PMC6497715","topic":"sleep alertness fatigue","setting":"vuelo espacial"},
+    {"id":"PMC4440601","topic":"sleep circadian physiology performance","setting":"revisión"},
+    {"id":"PMC13121384","topic":"sleep isolation autonomic nervous system","setting":"análogo terrestre"},
+    {"id":"PMC11614644","topic":"cognition ISS sleep alertness","setting":"vuelo espacial"},
+    {"id":"PMC12515966","topic":"motion sickness balance vestibular sensorimotor","setting":"vuelo espacial"},
+    {"id":"PMC10614241","topic":"cardiovascular blood pressure orthostatic","setting":"revisión sistemática"},
+    {"id":"PMC9018660","topic":"orthostatic intolerance cardiovascular astronauts","setting":"revisión"},
+    {"id":"PMC11545902","topic":"cardiovascular radiation microgravity","setting":"revisión"},
+    {"id":"PMC11394298","topic":"vision neuro-ocular microgravity analog","setting":"análogo terrestre"},
+    {"id":"PMC10907968","topic":"vision neuro-ocular SANS","setting":"revisión"},
+    {"id":"PMC7200725","topic":"bone loss bone density fracture","setting":"revisión sistemática"},
+    {"id":"PMC9247070","topic":"bone strength bone density recovery","setting":"vuelo espacial"},
+    {"id":"PMC12304210","topic":"bone loss density","setting":"vuelo espacial"},
+    {"id":"PMC10412640","topic":"bone marrow muscle fluid shift","setting":"vuelo espacial"},
+    {"id":"PMC5098747","topic":"clinical symptoms crew ISS","setting":"vuelo espacial"},
+    {"id":"PMC8862023","topic":"bone exercise","setting":"vuelo espacial"}
+  ],
+  "studies": [
+    {"id":"OSD-575","doi":"10.26030/mc5d-p710","topic":"metabolism cardiovascular crew Inspiration4","setting":"vuelo espacial"},
+    {"id":"OSD-656","doi":"10.26030/7cax-yj10","topic":"inflammation biomarker crew Inspiration4","setting":"vuelo espacial"},
+    {"id":"OSD-946","doi":"10.26030/wzr2-r025","topic":"muscle exercise bed rest","setting":"análogo terrestre"}
+  ]
+}

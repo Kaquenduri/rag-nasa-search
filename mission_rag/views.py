@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_GET, require_POST
 
 from .generation import GeneratorError, ask
+from .research_retrieval import search_research
 from .retrieval import CORPUS, search
 
 
@@ -37,14 +38,14 @@ def read_question(request):
     return question.strip(), None
 
 
-def evidence_for(request):
+def evidence_for(request, retrieve=search):
     if not authorized(request):
         return None, [], JsonResponse({"error": "Acceso no autorizado."}, status=401)
     question, error = read_question(request)
     if error is not None:
         return None, [], error
     try:
-        return question, search(question), None
+        return question, retrieve(question), None
     except (OSError, ValueError):
         return None, [], JsonResponse({"error": "Corpus no disponible. Ejecuta la importación."}, status=503)
 
@@ -53,6 +54,14 @@ def evidence_for(request):
 def search_sources(request):
     _, evidence, error = evidence_for(request)
     return error if error is not None else JsonResponse({"sources": evidence})
+
+
+@require_POST
+def search_research_sources(request):
+    _, evidence, error = evidence_for(request, search_research)
+    if error is not None:
+        return error
+    return JsonResponse({"collection": "spaceflight_health_research", "sources": evidence})
 
 
 @require_POST

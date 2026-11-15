@@ -1,0 +1,2 @@
+# Needed to regenerate the research corpus locally. Search on Render uses the JSON.
+pypdf==6.21.4

@@ -89,3 +89,41 @@ pasajes históricos con la ficha clínica ni la telemetría.
 El servidor de desarrollo escucha en loopback. Para exponer una prueba con un
 servidor HTTPS, configura `DJANGO_ALLOWED_HOSTS`, `DJANGO_SECRET_KEY` y
 `RAG_API_TOKEN`. El cliente puede enviar `Authorization: Bearer <token>`.
+
+## Colección de investigación sobre salud en el espacio
+
+El [portal BPS de NASA](https://science.nasa.gov/biological-physical/data/) dirige al
+[OSDR](https://science.nasa.gov/biological-physical/data/osdr/) para datos de
+investigación y a la [NASA Space Life Sciences Library](https://public.ksc.nasa.gov/nslsl/)
+para literatura. La selección de `health_sources.json` recoge estudios humanos y
+análogos terrestres, artículos de revista de PubMed Central y los PDF públicos
+del [Human Research Program](https://humanresearchroadmap.nasa.gov/evidence/).
+
+- `data/raw/research/` guarda PDF, XML JATS y registros originales de DOI. Está fuera de Git, igual que los otros originales.
+- `data/research-corpus.json` contiene los textos extraídos. Se conserva el idioma original, sin traducciones, resúmenes ni inferencias. Para los PDF se usa su capa de texto por página. Para los artículos se extraen los párrafos del resumen y cuerpo por sección. Para OSDR se guardan las descripciones de los registros DOI, con sus licencias.
+- `data/research-report.json` documenta la URL, huella SHA-256 del original y exclusiones por licencia o disponibilidad. Las figuras, tablas, anexos y archivos de los participantes se consultan en la fuente cuando corresponda. El texto de PDF puede heredar cortes de línea y orden de columnas de su capa de texto.
+
+La colección se indexa como **evidencia de investigación**. No forma parte de
+los procedimientos o del inventario de una misión concreta. El endpoint solo
+devuelve los pasajes originales y sus referencias. No ejecuta Ollama.
+
+```sh
+curl -sS http://127.0.0.1:8010/api/research/search/ \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"intolerancia ortostática y presión arterial"}'
+```
+
+Cada resultado incluye el `excerpt`, `source_id`, tipo de documento, URL y
+página o sección, además del DOI o licencia cuando la fuente dispone de ellos.
+Los identificadores `S1`, `S2`, etc. pertenecen a la consulta actual. Si el
+servicio configura `RAG_API_TOKEN`, también se aplica a esta ruta.
+
+Para actualizar esta selección y recuperar los originales:
+
+```sh
+python3 -m pip install --target .deps -r requirements-research.txt
+PYTHONPATH=.deps python3 -m mission_rag.research_ingest --refresh
+```
+
+La búsqueda en Render solo necesita el JSON preparado. Las dependencias de
+extracción de PDF y los archivos originales solo son necesarios para regenerarlo.

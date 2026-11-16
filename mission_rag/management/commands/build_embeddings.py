@@ -13,7 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, collection, **options):
         if not embeddings_configured():
-            raise CommandError("Define OLLAMA_EMBED_URL y OLLAMA_EMBED_MODEL antes de generar el índice.")
+            raise CommandError("Define GOOGLE_API_KEY antes de generar el índice.")
 
         collections = {"missions": (CORPUS, build_index), "research": (RESEARCH_CORPUS, research_index)}
         for name, (path, load) in collections.items():

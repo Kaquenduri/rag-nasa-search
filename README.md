@@ -135,35 +135,37 @@ Django construye el índice BM25 al arrancar la búsqueda y combina su ranking
 con el ranking semántico cuando el índice vectorial está disponible. La
 colección de salud sigue entregando hasta 3 extractos de 800 caracteres.
 
-Activa los embeddings en **Render → Environment** con estas dos variables.
-Usa el mismo modelo que generó los índices versionados.
+Los embeddings usan `GoogleGenerativeAIEmbeddings` de LangChain con el modelo
+remoto `gemini-embedding-001`, que tiene una capa gratuita sujeta a límites.
+Necesitas una clave de la API de Gemini creada en Google AI Studio. Configura en
+**Render → Environment**:
 
 | Variable | Valor para SOMA |
 | --- | --- |
-| `OLLAMA_EMBED_URL` | `https://scouting-flatten-arrival.ngrok-free.dev/api/embed` |
-| `OLLAMA_EMBED_MODEL` | `qwen3-embedding:8b` |
+| `GOOGLE_API_KEY` | Tu clave de la API de Gemini (secreta) |
+| `GOOGLE_EMBED_MODEL` | `gemini-embedding-001` (opcional; valor predeterminado) |
+| `RAG_EMBED_MIN_SCORE` | `0.25` (opcional; ajustable según resultados) |
 
-En Terminal, define las mismas variables antes de generar el índice:
+En Terminal, define la clave antes de generar el índice:
 
 ```sh
-export OLLAMA_EMBED_URL=https://scouting-flatten-arrival.ngrok-free.dev/api/embed
-export OLLAMA_EMBED_MODEL=qwen3-embedding:8b
+export GOOGLE_API_KEY=tu_clave
 PYTHONPATH=.deps python3 manage.py build_embeddings
 ```
 
 También puedes ejecutar el comando con `--collection missions` o
 `--collection research`. El comando reutiliza los lotes guardados si se
-interrumpe. Reejecútalo si actualizas el corpus o cambias de modelo. Puedes
-generar los archivos con Ollama local mediante
-`OLLAMA_EMBED_URL=http://127.0.0.1:11434/api/embed`.
+interrumpe. Reejecútalo si actualizas el corpus o cambias de modelo. El índice
+anterior de Ollama no es compatible: regenera los vectores y publica los
+archivos nuevos antes de activar la búsqueda semántica en Render.
 
 Sube `data/missions-vectors.npz` y `data/research-vectors.npz` a GitHub junto
 a sus corpus. Cada archivo contiene vectores comprimidos de 256 dimensiones
 y una huella que permite verificar que pertenecen a esa versión del texto.
 Render carga los archivos y calcula similitud coseno en memoria. No necesita
 una base vectorial ni descargar el corpus en cada build. Sin un índice
-válido, si falta cualquiera de las dos variables o si Ollama no responde,
+válido, si falta la clave o si Gemini no responde,
 se usa BM25 con el mismo contrato de la API.
 
-La consulta de búsqueda se envía a Ollama para obtener su embedding. Usa
+La consulta de búsqueda se envía a Gemini para obtener su embedding. Usa
 términos de búsqueda sin nombres, fichas clínicas ni telemetría.

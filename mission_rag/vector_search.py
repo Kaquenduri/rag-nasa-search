@@ -1,47 +1,48 @@
 """Persistent cosine index and reciprocal rank fusion for the two SOMA collections."""
 from functools import lru_cache
 from hashlib import sha256
-import json
 import logging
 import os
 from pathlib import Path
 from time import sleep
-from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from django.conf import settings
+from google.genai.errors import APIError
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import numpy as np
 
-from .network import https_handler
 
 logger = logging.getLogger(__name__)
 DIMENSIONS = 256
 DATA = Path(__file__).resolve().parent.parent / "data"
-QUERY_PREFIX = "Instruct: Given a question, retrieve relevant passages about human spaceflight.\nQuery: "
-
-
-class NoRedirects(HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        return None
 
 
 def embeddings_configured():
-    return bool(settings.OLLAMA_EMBED_URL and settings.OLLAMA_EMBED_MODEL)
+    return bool(settings.GOOGLE_API_KEY)
 
 
-def embed(texts, timeout):
-    request = Request(settings.OLLAMA_EMBED_URL, method="POST", headers={
-        "Content-Type": "application/json", "ngrok-skip-browser-warning": "1",
-    }, data=json.dumps({
-        "model": settings.OLLAMA_EMBED_MODEL, "input": texts, "dimensions": DIMENSIONS,
-        "truncate": False,
-    }, ensure_ascii=False).encode())
-    with build_opener(NoRedirects, https_handler()).open(request, timeout=timeout) as reply:
-        values = np.asarray(json.loads(reply.read(3_000_000))["embeddings"], dtype=np.float32)
+@lru_cache(maxsize=2)
+def embedding_model(timeout):
+    return GoogleGenerativeAIEmbeddings(
+        model=settings.GOOGLE_EMBED_MODEL,
+        output_dimensionality=DIMENSIONS,
+        api_key=settings.GOOGLE_API_KEY,
+        request_options={"timeout": timeout},
+    )
+
+
+def embed(texts, timeout, query=False):
+    try:
+        model = embedding_model(timeout)
+        result = [model.embed_query(texts[0])] if query else model.embed_documents(texts)
+    except APIError as exc:
+        raise ValueError(f"No se pudieron generar embeddings con Gemini: {exc}") from exc
+    values = np.asarray(result, dtype=np.float32)
     if values.shape != (len(texts), DIMENSIONS) or not np.isfinite(values).all():
         raise ValueError("Dimensiones de embeddings inesperadas.")
     norms = np.linalg.norm(values, axis=1, keepdims=True)
     if not np.all(norms > 0):
-        raise ValueError("Ollama devolvió embeddings vacíos.")
+        raise ValueError("Gemini devolvió embeddings vacíos.")
     return values / norms
 
 
@@ -62,7 +63,7 @@ def save_index(path, key, vectors):
     tmp = path.with_suffix(".tmp")
     with tmp.open("wb") as stream:
         np.savez_compressed(stream, fingerprint=np.asarray(key),
-                            model=np.asarray(settings.OLLAMA_EMBED_MODEL), vectors=vectors.astype(np.float16))
+                            model=np.asarray(settings.GOOGLE_EMBED_MODEL), vectors=vectors.astype(np.float16))
     tmp.replace(path)
 
 
@@ -82,13 +83,13 @@ def build_vectors(collection, docs, progress):
     path = DATA / f"{collection}-vectors.npz"
     checkpoint = DATA / f"{collection}-vectors.partial.npz"
     try:
-        current = read_index(path, key, settings.OLLAMA_EMBED_MODEL)
+        current = read_index(path, key, settings.GOOGLE_EMBED_MODEL)
         if len(current) == len(texts):
             return path
     except (OSError, ValueError, KeyError):
         pass
     try:
-        vectors = read_index(checkpoint, key, settings.OLLAMA_EMBED_MODEL)
+        vectors = read_index(checkpoint, key, settings.GOOGLE_EMBED_MODEL)
         if len(vectors) > len(texts):
             raise ValueError("Checkpoint incompatible.")
     except (OSError, ValueError, KeyError):
@@ -123,10 +124,10 @@ def hybrid_rank(collection, docs, question, lexical, eligible=None):
         return lexical
     try:
         key = fingerprint(texts_for(docs))
-        vectors = cached_vectors(path, path.stat().st_mtime_ns, key, settings.OLLAMA_EMBED_MODEL)
+        vectors = cached_vectors(path, path.stat().st_mtime_ns, key, settings.GOOGLE_EMBED_MODEL)
         if len(vectors) != len(docs):
             return lexical
-        query = embed([QUERY_PREFIX + question], timeout=12)[0]
+        query = embed([question], timeout=12, query=True)[0]
         similarities = vectors @ query
     except (OSError, ValueError, KeyError):
         logger.warning("Búsqueda vectorial no disponible para %s. Se usa BM25.", collection)

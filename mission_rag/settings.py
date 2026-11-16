@@ -18,6 +18,6 @@ OLLAMA_URL = os.getenv("OLLAMA_URL", "https://scouting-flatten-arrival.ngrok-fre
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3.5:2b")
 RAG_API_TOKEN = os.getenv("RAG_API_TOKEN", "")
 
-OLLAMA_EMBED_URL = os.getenv("OLLAMA_EMBED_URL", "").strip()
-OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "").strip()
-RAG_EMBED_MIN_SCORE = float(os.getenv("RAG_EMBED_MIN_SCORE", "0.42"))
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "").strip()
+GOOGLE_EMBED_MODEL = os.getenv("GOOGLE_EMBED_MODEL", "gemini-embedding-001").strip()
+RAG_EMBED_MIN_SCORE = float(os.getenv("RAG_EMBED_MIN_SCORE", "0.25"))
